@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>书籍详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/jQuery/jquery-1.12.1.js"></script>
+    <script>
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null; //返回参数值
+        }
+        $(document).ready(function () {
+            $.get("http://localhost:3000/bInfo?id=" + getUrlParam('_id'), function (data, status) {
+                if (status === 'success' && data) {
+                    $(".src").attr("src",data.src);
+                    $(".bname").text(data.title);
+                    $(".bauthor").text(data.author);
+                    $(".bookDesc").text(data.bookDesc);
+                    $(".class").text(data.class);  
+                }
+            })
+        })
+    </script>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    div {
+        width: 982px;
+        margin: 0 auto;
+    }
+
+    img {
+        width: 193px;
+        height: 258px;
+        float: left;
+        margin-right: 6px;
+    }
+
+    .bname {
+        font-size: 20px;
+    }
+
+    .bauthor {
+
+        margin-left: 13px;
+        color: #999999;
+        ;
+
+    }
+
+    .bookDesc {
+        font-size: 13px;
+    }
+
+    .decdiv {
+        width: 800px;
+        height: 190px;
+
+    }
+
+    .class {
+
+        color: #999999;
+        font-size: 13px;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <img class="src" src="http://img-tailor.11222.cn/bcv/big/201707191609091282.jpg">
+
+        <span class="bname">重生1970</span>
+        <span class="bauthor">京城男宠</span>
+        <div class="decdiv">
+            <p class="bookDesc">周篱一觉醒来竟然回到了七零年代，几经确认后她接受了上天这样的安排，励志要在这个物资紧缺动荡的大时代好好的活下去，并要活出属于自己的精彩！</p>
+        </div>
+        <span class="class">现代言情</span>
+    </div>
+
+</body>
+
+</html>
